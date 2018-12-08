@@ -25,7 +25,7 @@ public class ProviderMapper {
   }
 
   public ProviderResponse providerToProviderResponse(final ProviderEntity provider) {
-    Optional.of(provider).orElseThrow(() -> new ResultNotFoundException(messageSourceUtils.getResultNotFoundExceptionMessage()));
+    Optional.ofNullable(provider).orElseThrow(() -> new ResultNotFoundException(messageSourceUtils.getResultNotFoundExceptionMessage()));
     return ProviderResponse.builder()
         .address(provider.getAddress())
         .name(provider.getName())
@@ -39,7 +39,7 @@ public class ProviderMapper {
   }
 
   public List<ProviderResponse> providerListToProviderResponseList(final List<ProviderEntity> providers) {
-    Optional.of(providers).orElseThrow(() -> new ResultNotFoundException(messageSourceUtils.getResultNotFoundExceptionMessage()));
+    Optional.ofNullable(providers).orElseThrow(() -> new ResultNotFoundException(messageSourceUtils.getResultNotFoundExceptionMessage()));
     List<ProviderResponse> providerResponseList = new ArrayList<>();
     providers.forEach(provider -> providerResponseList.add(providerToProviderResponse(provider)));
     return providerResponseList;
