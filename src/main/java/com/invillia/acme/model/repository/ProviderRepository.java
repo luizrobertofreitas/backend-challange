@@ -10,17 +10,17 @@ import org.springframework.util.StringUtils;
 
 public interface ProviderRepository extends JpaRepository<ProviderEntity, Long>, JpaSpecificationExecutor {
 
-  default List<ProviderEntity> awesomeFinder(final ProviderEntity provider) {
-    return findAll(Specification.where(nameIsEquals(provider.getName()))
-        .and(addressIsEquals(provider.getAddress())));
+  default List<ProviderEntity> findByParams(final ProviderEntity providerEntity) {
+    return findAll(Specification.where(nameIsLike(providerEntity.getName()))
+        .and(addressIsLike(providerEntity.getAddress())));
   }
 
-  static Specification<ProviderEntity> nameIsEquals(final String name) {
+  static Specification<ProviderEntity> nameIsLike(final String name) {
     return StringUtils.isEmpty(name) ? null : (Specification<ProviderEntity>) (root, criteriaQuery, criteriaBuilder) -> criteriaBuilder.like(root.get("name"),
         CustomStringUtils.surroundStringWith(name, "%"));
   }
 
-  static Specification<ProviderEntity> addressIsEquals(final String address) {
+  static Specification<ProviderEntity> addressIsLike(final String address) {
     return StringUtils.isEmpty(address) ? null : (Specification<ProviderEntity>) (root, criteriaQuery, criteriaBuilder) -> criteriaBuilder.like(root.get("address"),
         CustomStringUtils.surroundStringWith(address, "%"));
   }

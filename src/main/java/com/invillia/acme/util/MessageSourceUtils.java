@@ -23,11 +23,7 @@ public class MessageSourceUtils {
     return getMessageByKey(REQUEST_PAYLOAD_INVALID_KEY);
   }
 
-  public String getResultNotFoundExceptionMessage(Object ... params) {
+  public String getResultNotFoundExceptionMessage(final Object ... params) {
     return getMessageByKey(RESULT_NOT_FOUND_KEY, params);
-  }
-
-  public String getDefaultErrorMessage() {
-    return getMessageByKey(DEFAULT_ERROR_KEY);
   }
 }

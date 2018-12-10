@@ -12,21 +12,21 @@ public class ProviderService {
   @Autowired
   private ProviderRepository providerRepository;
 
-  public ProviderEntity save(final ProviderEntity provider) {
-    return providerRepository.save(provider);
+  public ProviderEntity save(final ProviderEntity providerEntity) {
+    return providerRepository.save(providerEntity);
   }
 
-  public ProviderEntity update(final Long id, final ProviderEntity provider) {
+  public ProviderEntity update(final Long id, final ProviderEntity providerEntity) {
     ProviderEntity providerFound = getById(id);
-    return save(providerFound.updateWith(provider));
+    return save(providerFound.updateWith(providerEntity));
   }
 
   public ProviderEntity getById(final Long id) {
     return providerRepository.getOne(id);
   }
 
-  public List<ProviderEntity> getByProviderParams(final ProviderEntity provider) {
-    return providerRepository.awesomeFinder(provider);
+  public List<ProviderEntity> getByProviderParams(final ProviderEntity providerEntity) {
+    return providerRepository.findByParams(providerEntity);
   }
 
 }

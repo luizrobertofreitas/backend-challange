@@ -1,6 +1,6 @@
 package com.invillia.acme.resource.v1;
 
-import com.invillia.acme.resource.v1.domain.ProviderRequest;
+import com.invillia.acme.resource.v1.domain.Provider;
 import com.invillia.acme.resource.v1.mapper.ProviderMapper;
 import com.invillia.acme.service.ProviderService;
 import javax.validation.Valid;
@@ -28,29 +28,29 @@ public class ProviderResource {
   private ProviderMapper providerMapper;
 
   @PostMapping
-  public ResponseEntity create(@RequestBody @Valid final ProviderRequest providerRequest) {
-    return ResponseEntity.status(HttpStatus.CREATED).body(providerMapper.providerToProviderResponse(
+  public ResponseEntity create(@RequestBody @Valid final Provider provider) {
+    return ResponseEntity.status(HttpStatus.CREATED).body(providerMapper.providerEntityToProvider(
         providerService.save(
-            providerMapper.providerRequestToProvider(providerRequest))));
+            providerMapper.providerToProviderEntity(provider))));
   }
 
   @PutMapping("/{id}")
   @ResponseStatus(HttpStatus.NO_CONTENT)
   public void update(@PathVariable("id") final Long id,
-      @RequestBody @Valid final ProviderRequest providerRequest) {
-    providerService.update(id, providerMapper.providerRequestToProvider(providerRequest));
+      @RequestBody @Valid final Provider provider) {
+    providerService.update(id, providerMapper.providerToProviderEntity(provider));
   }
 
   @GetMapping("/{id}")
   public ResponseEntity getById(@PathVariable("id") final Long id) {
     return ResponseEntity.ok(
-        providerMapper.providerToProviderResponse(providerService.getById(id)));
+        providerMapper.providerEntityToProvider(providerService.getById(id)));
   }
 
   @GetMapping
   public ResponseEntity getByParams(@RequestParam(name = "name", required = false) final String name,
       @RequestParam(name = "address", required = false) final String address) {
-    return ResponseEntity.ok(providerMapper.providerListToProviderResponseList(
-        providerService.getByProviderParams(providerMapper.providerParamsToProvider(name, address))));
+    return ResponseEntity.ok(providerMapper.providerEntityListToProviderList(
+        providerService.getByProviderParams(providerMapper.providerParamsToProviderEntity(name, address))));
   }
 }

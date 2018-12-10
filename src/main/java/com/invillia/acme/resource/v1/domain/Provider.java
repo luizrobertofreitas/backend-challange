@@ -2,13 +2,23 @@ package com.invillia.acme.resource.v1.domain;
 
 import java.io.Serializable;
 import java.time.LocalDateTime;
+import javax.validation.constraints.NotEmpty;
 import lombok.Builder;
 import lombok.Getter;
+import lombok.ToString;
 
-@Builder
 @Getter
-public class ProviderResponse implements Serializable {
+@ToString
+@Builder
+public class Provider implements Serializable {
+
   private final Long id;
-  private final String name, address;
+
+  @NotEmpty
+  private final String name;
+
+  @NotEmpty
+  private final String address;
+
   private final LocalDateTime createdAt;
 }
