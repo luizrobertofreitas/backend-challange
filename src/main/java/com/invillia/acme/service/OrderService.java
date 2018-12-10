@@ -32,8 +32,10 @@ public class OrderService {
   @Transactional
   public void refund(final Long id) {
     OrderEntity orderEntity = getById(id);
-    if (!orderEntity.canRefund())
+    if (!orderEntity.canRefund()) {
       log.warn("Order: {} with status {} cannot be refunded", id, orderEntity.getStatus());
+      return;
+    }
     orderEntity.refund();
     save(orderEntity);
   }
@@ -42,8 +44,11 @@ public class OrderService {
   @Transactional
   public void refundItem(final Long id, final Long orderItemId) {
     OrderEntity orderEntity = getById(id);
-    if (!orderEntity.canRefund())
-      log.warn("Order Item: {}, for order {} with status {} cannot be refunded", orderItemId, id, orderEntity.getStatus());
+    if (!orderEntity.canRefund()) {
+      log.warn("Order Item: {}, for order {} with status {} cannot be refunded", orderItemId, id,
+          orderEntity.getStatus());
+      return;
+    }
     orderEntity.refundItem(orderItemId);
     save(orderEntity);
   }
