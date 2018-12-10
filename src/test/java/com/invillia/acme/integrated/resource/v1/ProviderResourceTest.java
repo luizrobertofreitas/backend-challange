@@ -40,7 +40,7 @@ public class ProviderResourceTest {
   @Before
   public void setupProviders() {
     if (providerRepository.count() < 1)
-      providerRepository.saveAll(createProviderEntities());
+      providerRepository.saveAll(providerEntities());
   }
 
   @Test
@@ -95,7 +95,7 @@ public class ProviderResourceTest {
         .andExpect(jsonPath("$", hasSize(0)));
   }
 
-  private List<ProviderEntity> createProviderEntities() {
+  private List<ProviderEntity> providerEntities() {
     List<ProviderEntity> providerEntities = new ArrayList<>();
     providerEntities.add(ProviderEntity.builder().name("Name First").address("Address First").build());
     providerEntities.add(ProviderEntity.builder().name("Name Second").address("Address Second").build());

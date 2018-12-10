@@ -30,9 +30,10 @@ public class OrderResource {
 
   @PostMapping
   public ResponseEntity create(@RequestBody @Valid final Order order) {
-    return ResponseEntity.ok(orderMapper.orderEntityToOrder(
-        orderService.save(
-            orderMapper.orderToOrderEntity(order))));
+    return ResponseEntity.status(HttpStatus.CREATED).body(
+        orderMapper.orderEntityToOrder(
+            orderService.save(
+                orderMapper.orderToOrderEntity(order))));
   }
 
   @GetMapping("/{id}")

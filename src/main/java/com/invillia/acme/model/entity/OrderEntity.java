@@ -99,7 +99,7 @@ public class OrderEntity implements Serializable {
   }
 
   public OrderPaymentEntity getLastOrderPayment() {
-    return Optional.of(payments)
+    return Optional.ofNullable(payments)
         .orElse(Collections.emptyList())
         .stream().sorted(Comparator.comparing(OrderPaymentEntity::getPaidAt).reversed())
         .findFirst()
